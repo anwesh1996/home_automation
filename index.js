@@ -24,7 +24,6 @@ app.config = config;
 app.db = mongoose.createConnection(config.mongo_db_uri, {useNewUrlParser:true,useUnifiedTopology: true});
 
 app.use(require('serve-static')(path.join(__dirname, 'client')));
-
 app.db.on('error', function (err) {
     app.logger.methods.log("Mongo DB Connection Error", ' DB: Error', err);
     process.exit(1);

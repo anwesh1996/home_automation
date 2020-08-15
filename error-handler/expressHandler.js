@@ -2,6 +2,11 @@ const logger = require('../utils/logger')
 exports.catchErrors = action => (req, res, next) => action(req, res).catch(next)
 
 exports.sendSuccessResponse = (res,data,message,code) =>{
+
+    if(data && data.log_action){
+        res.locals.log_action=data.log_action
+        delete data.log_action
+    }
     res.status(code).json({
         success:true,
         payload:data,

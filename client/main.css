@@ -54,13 +54,15 @@ a:hover { text-decoration: underline; color: #aaa; }
 }
 
 #log {
-    display: block;
-    /* enough padding to clear the toolbar.. is there a better way to do this? */
-    padding-bottom: 2.1em;
+    position: fixed;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 50%;
+    font-size: 1em;
+    overflow: auto;
+    top: 0; right: 0;left: 0;
     /* border: 1px solid red; */
-    font-size: 0.5em;
     background: inherit;
-    overflow: hidden;
 }
 
 .cmd {color: #F7A63D; }
