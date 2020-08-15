@@ -15,7 +15,8 @@ exports.sendSuccessResponse = (res,data,message,code) =>{
 }
 
 exports.sendFailureResponse = (res,err,message,code) =>{
-    logger.write.log(err,message,code)
+    console.log(err,message,code)
+    code = err.code ? err.code : code;
     res.status(code).json({
         success:false,
         payload:err || null,

@@ -7,8 +7,7 @@ var app = require('express')(),
     figlet = require('figlet'),
     chalk = require('chalk'),
     helmet = require('helmet'),
-    config = require('./config')
-
+    config = require('./config');
 
 figlet(`Home Automation Service`, function (err, data) {
     if (err) {
@@ -56,12 +55,11 @@ app.db.once('open', function () {
     });
     require('./socket_routes')(io)
     require('./routes')(app, io)
-
-    server.listen(app.config.port, function () {
+  server.listen(app.config.port, function () {
         app.logger.methods.log(' Server is running on port ' + ' ' + config.port, "");
     });
-
 });
+
 
 
 process.on('uncaughtException', (err, origin) => {
@@ -75,5 +73,5 @@ app.use(function (err, req, res, next) {
     app.logger.methods.log("err", err);
     return res.json({ "err": "invalid req JSON " });
 });
-
+module.exports=app;
 

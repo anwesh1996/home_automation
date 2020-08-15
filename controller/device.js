@@ -64,7 +64,7 @@ let create = async(data) => {
                 }
                 resolve(device)
             }else{
-                reject('Invalid device details,please verify api documents')
+                reject({message:'Invalid device details,please verify api documents',code:400})
             }
             
         }
