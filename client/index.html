@@ -20,6 +20,62 @@
             $('#log').append(`<span style="display:block">${data.message}(${new Date().toLocaleTimeString()})</span>`)
 
         })
+        socket.on('devices',(data)=>{
+            console.log(data)
+            $('#log').css('font-size', '1em');
+                $('#log').css('display', 'flex');
+                $('#log').css('flex-direction', 'column');
+            if(!data.payload){
+                $('#log').append(`<span style="display:block">Something went wrong,Reload the page & try again</span>`)
+            }else if(data.payload.length === 0){
+                $('#log').append(`<span style="display:block">No Devicess available(Please add using REST API)</span>`)
+            }else{
+                $('#log').html('')
+                data.payload.map((d,i)=>{
+                    $('#log').append(`<span style="display:block">${i+1}.${d.name}</span>`)
+                })
+            }
+        })
+        var isBlank = function (text) {
+            var blank = /^\s*$/;
+            return (text.match(blank) !== null);
+        }
+
+        function send(msg) {
+            try {
+                // $('#toolbar').css('background', '#933');
+                // $('#socketStatus').html("fetching ... [<a href='#' onClick='quit()'>X</a>]");
+                console.log(typeof msg,'message')
+                switch(msg){
+                    case '1':
+                        socket.emit('list_devices')
+                        break;
+                    default:
+                        //choose from list 
+                        alert('Choose index from available list')
+                        break
+                }
+               
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        $(document).ready(function () {
+            $("#entry").keypress(function (e) {
+                if (e.keyCode != 13 ) return;
+                var msg = $("#entry").attr("value").replace("\n", "");
+                if (!isBlank(msg)) {
+                    if(msg==='clear'){
+                        $('#log').html('')
+                    }else{
+                        send(msg);
+                    }
+                    
+                }
+                $("#entry").attr("value", ""); // clear the entry field.
+            });
+        });
+
     </script>
 </head>
 
@@ -29,7 +85,7 @@
     </div>
     <div id="toolbar">
         <ul id="status">
-            <li><span>Type your comand:</span></li>
+            <li><span>Choose index from list(to reset the page reload)type 'clear'to clear:</span></li>
         </ul>
         <input type="text" id="entry" autofocus />
     </div>

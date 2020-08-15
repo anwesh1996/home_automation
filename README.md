@@ -33,7 +33,8 @@ This README would normally document whatever steps are necessary to get your app
 - npm i
 - npm start 
 - since it is boiler plate code,local execution set up is described
-
+- Install mocha as global dependency for executing test
+- To run automation tests run npm test
 ### Contribution guidelines ###
 
 * Writing tests

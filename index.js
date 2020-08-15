@@ -53,7 +53,7 @@ app.db.once('open', function () {
     app.get('/', function (req, res) {
         res.sendFile(__dirname + '/client/index.html');
     });
-    require('./socket_routes')(io)
+    require('./socket_routes')(io,app)
     require('./routes')(app, io)
   server.listen(app.config.port, function () {
         app.logger.methods.log(' Server is running on port ' + ' ' + config.port, "");
