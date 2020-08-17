@@ -78,7 +78,14 @@ let create = async (data) => {
 let getAll = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let devices = await app.db.models.Device.find({}).lean()
+            let devices=[];
+            if(data.pageSize && data.pageNo){
+                let limit=data.pageSize ? Number(data.pageSize) :30
+                let skip = data.pageNo ? parseInt(data.pageNo-1)*limit:0
+                devices = await app.db.models.Device.find({}).skip(skip).limit(limit).lean()
+            }else{
+                devices = await app.db.models.Device.find({}).lean()
+            } 
             resolve(devices)
         }
         catch (err) {
